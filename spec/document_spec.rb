@@ -14,6 +14,22 @@ describe Document, '#frequency' do
   end
 end
 
+describe Document, '#==' do
+  it 'returns true if two documents have the same terms and frequencies' do
+    doc_1 = sample_doc
+    doc_2 = sample_doc
+
+    expect(doc_1).to eq doc_2
+  end
+
+  it 'returns false if two documents have different terms or frequencies' do
+    doc_1 = sample_doc
+    doc_2 = Document.new(['lol', 'wut'])
+
+    expect(doc_1).not_to eq doc_2
+  end
+end
+
 describe Document, '#terms' do
   it 'returns all the terms in the document' do
     expect(sample_doc.terms.sort).to eq ['bar', 'foo']

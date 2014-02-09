@@ -17,6 +17,11 @@ class Document
     term_hash[term]
   end
 
+  def ==(other)
+    union_of_terms = (terms + other.terms).uniq
+    union_of_terms.all? { |term| frequency(term) == other.frequency(term) }
+  end
+
   def similarity(query)
     terms.map { |term| frequency(term) * query.frequency(term) }.inject(&:+)
   end
