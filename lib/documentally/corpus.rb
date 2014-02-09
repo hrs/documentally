@@ -1,10 +1,10 @@
-class Corpus
+class Documentally::Corpus
   attr_reader :documents
 
   def initialize(*term_lists)
-    master_document = Document.new(term_lists.inject(&:+))
+    master_document = Documentally::Document.new(term_lists.inject(&:+))
 
-    @documents = term_lists.map { |term_list| Document.new(term_list) }
+    @documents = term_lists.map { |term_list| Documentally::Document.new(term_list) }
     documents.each do |document|
       document.normalize!(master_document)
     end

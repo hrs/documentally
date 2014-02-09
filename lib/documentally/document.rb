@@ -1,4 +1,4 @@
-class Document
+class Documentally::Document
   attr_accessor :term_hash
 
   def initialize(terms)
