@@ -3,7 +3,7 @@ require 'documentally'
 
 describe Documentally do
   def sample_doc
-    Documentally::Document.new(['foo', 'foo', 'bar', 'foo'])
+    Documentally::Document.new('sample_document', ['foo', 'foo', 'bar', 'foo'])
   end
 
   describe Documentally::Document, '#frequency' do
@@ -26,7 +26,7 @@ describe Documentally do
 
     it 'returns false if two documents have different terms or frequencies' do
       doc_1 = sample_doc
-      doc_2 = Documentally::Document.new(['lol', 'wut'])
+      doc_2 = Documentally::Document.new('other', ['lol', 'wut'])
 
       expect(doc_1).not_to eq doc_2
     end
@@ -41,7 +41,7 @@ describe Documentally do
   describe Documentally::Document, '#normalize!' do
     it 'inverts the frequency of the terms in place' do
       doc = sample_doc
-      corpus = Documentally::Document.new(['foo', 'foo', 'bar', 'foo', 'bar', 'baz'])
+      corpus = Documentally::Document.new('corpus', ['foo', 'foo', 'bar', 'foo', 'bar', 'baz'])
 
       doc.normalize!(corpus)
 
@@ -54,9 +54,17 @@ describe Documentally do
   describe Documentally::Document, '#similarity' do
     it 'returns the dot product between itself and a query document' do
       doc = sample_doc
-      query = Documentally::Document.new(['foo', 'baz'])
+      query = Documentally::Document.new('query', ['foo', 'baz'])
 
       expect(doc.similarity(query)).to eq 3.0
+    end
+  end
+
+  describe Documentally::Document, '#to_s' do
+    it 'returns the document name' do
+      doc = sample_doc
+
+      expect(doc.to_s).to eq 'sample_document'
     end
   end
 end

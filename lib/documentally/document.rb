@@ -1,12 +1,18 @@
 class Documentally::Document
   attr_accessor :term_hash
+  attr_reader :name
 
-  def initialize(terms)
+  def initialize(name, terms)
+    @name = name
     @term_hash = Hash.new(0.0)
 
     terms.each do |term|
       @term_hash[term] += 1
     end
+  end
+
+  def to_s
+    name.to_s
   end
 
   def terms
